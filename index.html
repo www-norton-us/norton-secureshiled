@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureShield - Manage Your Digital Security</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+        
+        .sign-in-btn {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sign-in-btn:hover {
+            background-color: white;
+            color: #2c3e50;
+        }
+        
+        .hero {
+            background-color: #0a2540;
+            background-image: linear-gradient(120deg, #0a2540 0%, #0e4577 100%);
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero .cta-btn {
+            max-width: 400px;
+            width: 50%;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-btn {
+            background-color: #f1c40f;
+            color: #333;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .cta-btn:hover {
+            background-color: #f39c12;
+            color: #000;
+        }
+        
+        .returning-text {
+            margin-top: 1rem;
+            color: #ddd;
+        }
+        
+        .returning-text a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 4rem 2rem;
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .feature {
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .feature-icon {
+            margin-bottom: 1rem;
+        }
+        
+        .feature-icon img {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .feature h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .manage-section {
+            background-color: #34495e;
+            color: white;
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .manage-content {
+            flex: 1;
+            padding-right: 2rem;
+        }
+        
+        .manage-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .manage-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .manage-content p {
+            margin-bottom: 2rem;
+        }
+        
+        .device-protection {
+            background: linear-gradient(to bottom, #3498db, #2ecc71);
+            color: white;
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .device-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .device-content {
+            flex: 1;
+            padding-left: 2rem;
+        }
+        
+        .device-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .device-content p {
+            margin-bottom: 2rem;
+        }
+        
+        .popup-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .modal-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .modal-text {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .primary-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            flex: 1;
+            margin-right: 0.5rem;
+        }
+        
+        .secondary-btn {
+            background-color: #f1c40f;
+            color: #333;
+            border: none;
+            flex: 1;
+            margin-left: 0.5rem;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 1rem 1rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 1.5rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links {
+            flex: 2;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            margin: 0.5rem 1rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .footer-social a {
+            color: #ddd;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-social a:hover {
+            color: #3498db;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        /* Policy Modals */
+        .policy-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+        }
+        
+        .policy-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .policy-text {
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+        
+        .policy-text h3 {
+            margin: 1.5rem 0 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .policy-text p {
+            margin-bottom: 1rem;
+        }
+        
+        .policy-text ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-form {
+            margin-top: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-section,
+            .footer-links,
+            .footer-social {
+                flex: none;
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 1.5rem;
+            }
+            
+            .policy-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .features, .manage-section, .device-protection {
+                flex-direction: column;
+            }
+            
+            .feature, .manage-content, .manage-image, .device-content, .device-image {
+                max-width: 100%;
+                padding: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255,255,255,0.2)"></path>
+                <rect x="8" y="11" width="8" height="5" rx="1" ry="1"></rect>
+                <path d="M12 11v-3"></path>
+                <circle cx="12" cy="13.5" r="0.5" fill="currentColor"></circle>
+            </svg>
+            SecureShield
+        </div>
+        <button class="sign-in-btn">Sign In</button>
+    </header>
+    
+    <div class="hero">
+        <h1>Welcome to Norton</h1>
+        <p>To access the features in your plan, click below.</p>
+        <a href="#" class="cta-btn">Enter a Product Key</a>
+        <p class="returning-text">Returning customer? <a href="#">Sign in</a></p>
+    </div>
+    
+    <div class="overlay"></div>
+    <div class="popup-modal">
+        <h2 class="modal-title">Welcome to Norton</h2>
+        <p class="modal-text">To check out products designed specifically for your country, please visit the appropriate site</p>
+        <div class="modal-buttons">
+            <a href="#" class="modal-btn primary-btn">Visit the US site</a>
+            <a href="#" class="modal-btn secondary-btn">Go to CA site</a>
+        </div>
+    </div>
+    
+    <section class="features">
+        <div class="feature">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255,255,255,0.3)"></path>
+                    <path d="M9 12l2 2 4-4" stroke-width="2"></path>
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none"></path>
+                    <path d="M12 7v2"></path>
+                    <path d="M8 9h8"></path>
+                </svg>
+            </div>
+            <h2>Protect Multiple Devices</h2>
+            <p>Guard your devices with multi-layered security that blocks threats in real-time and keeps your data safe.</p>
+            <a href="#" class="cta-btn">Enter a Product Key</a>
+        </div>
+    </section>
+    
+    <section class="manage-section">
+        <div class="manage-content">
+            <h2>Manage your digital life. Anytime. Anywhere.</h2>
+            <p>At any time and from anywhere, sign in to your account to manage your subscriptions, update your profile, change your billing preferences, or renew your protection.</p>
+            <a href="#" class="cta-btn">Enter a Product Key</a>
+        </div>
+        <div class="manage-image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <circle cx="12" cy="18" r="1" fill="#ffffff"></circle>
+                <path d="M8 6h8"></path>
+                <path d="M8 10h8"></path>
+                <path d="M8 14h4"></path>
+                <circle cx="12" cy="9" r="3" fill="none"></circle>
+                <path d="M10 9a2 2 0 0 1 4 0"></path>
+                <path d="M9 13a5 5 0 0 1 6 0"></path>
+            </svg>
+        </div>
+    </section>
+    
+    <section class="device-protection">
+        <div class="device-image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255,255,255,0.2)"></path>
+                <rect x="8" y="11" width="8" height="5" rx="1" ry="1" fill="rgba(255,255,255,0.3)"></rect>
+                <path d="M12 11v-3"></path>
+                <path d="M8 8h8"></path>
+                <circle cx="12" cy="13.5" r="0.5" fill="#ffffff"></circle>
+                <path d="M15 7H9a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z" fill="none"></path>
+                <path d="M16 16H8a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1z" fill="none"></path>
+                <path d="M5 3l14 18" stroke-width="0.5" opacity="0.5"></path>
+                <path d="M19 3L5 21" stroke-width="0.5" opacity="0.5"></path>
+            </svg>
+        </div>
+        <div class="device-content">
+            <h2>Lost or stolen device protection to keep you secure</h2>
+            <p>If your device is lost or stolen, you can remotely lock and track it, sound an audible alarm, take a photo when the screen is activated, and wipe your personal information to prevent access.</p>
+            <a href="#" class="cta-btn">Enter a Product Key</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SecureShield Inc.</h3>
+                <p>Protecting your digital life since 2010</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" id="about-link">About Us</a>
+                <a href="#" id="terms-link">Terms of Service</a>
+                <a href="#" id="privacy-link">Privacy Policy</a>
+                <a href="#" id="ads-link">Google Ads Policies</a>
+                <a href="#" id="cookies-link">Cookies</a>
+                <a href="#" id="contact-link">Contact</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>Copyright © 2025 SecureShield Inc. All rights reserved.</p>
+        </div>
+        
+        <!-- Popup Modals -->
+        <div id="about-modal" class="policy-modal">
+            <div class="policy-content">
+                <span class="close-btn">&times;</span>
+                <h2>About SecureShield</h2>
+                <div class="policy-text">
+                    <p>SecureShield was founded in 2010 with a mission to protect individuals and businesses from the growing threats in the digital world.</p>
+                    <p>Our team of security experts works tirelessly to develop cutting-edge solutions that safeguard your devices, data, and privacy. We believe everyone deserves peace of mind when navigating the digital landscape.</p>
+                    <h3>Our Values</h3>
+                    <ul>
+                        <li><strong>Innovation:</strong> We constantly evolve our security solutions to stay ahead of emerging threats.</li>
+                        <li><strong>Reliability:</strong> Our products are designed to provide robust protection you can depend on.</li>
+                        <li><strong>Simplicity:</strong> We make advanced security accessible through intuitive interfaces and clear communication.</li>
+                        <li><strong>Integrity:</strong> We maintain the highest ethical standards in all our operations.</li>
+                    </ul>
+                    <p>With millions of users worldwide, SecureShield has become a trusted name in digital security, offering comprehensive protection for all your devices.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="terms-modal" class="policy-modal">
+            <div class="policy-content">
+                <span class="close-btn">&times;</span>
+                <h2>Terms of Service</h2>
+                <div class="policy-text">
+                    <p>Last updated: April 28, 2025</p>
+                    <p>Please read these Terms of Service ("Terms", "Terms of Service") carefully before using the SecureShield website and services.</p>
+                    <h3>1. Acceptance</h3>
+                    <p>By accessing or using our services, you agree to be bound by these Terms. If you disagree with any part of the terms, you may not access the service.</p>
+                    
+                    <h3>2. License and Service Use</h3>
+                    <p>SecureShield grants you a limited, non-exclusive, non-transferable license to use our services for your personal or internal business purposes. This license is subject to these Terms.</p>
+                    
+                    <h3>3. Restrictions</h3>
+                    <p>You agree not to:</p>
+                    <ul>
+                        <li>Use the services for any illegal purposes</li>
+                        <li>Attempt to gain unauthorized access to any portion of the services</li>
+                        <li>Modify, adapt, or hack the services</li>
+                        <li>Reproduce, duplicate, copy, sell, resell or exploit any portion of the services</li>
+                    </ul>
+                    
+                    <h3>4. Termination</h3>
+                    <p>We may terminate or suspend your access to our services immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+                    
+                    <h3>5. Changes</h3>
+                    <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. It is your responsibility to check these Terms periodically for changes.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="privacy-modal" class="policy-modal">
+            <div class="policy-content">
+                <span class="close-btn">&times;</span>
+                <h2>Privacy Policy</h2>
+                <div class="policy-text">
+                    <p>Last updated: April 30, 2025</p>
+                    <p>SecureShield Inc. ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information.</p>
+                    
+                    <h3>1. Information We Collect</h3>
+                    <p>We may collect personal information such as:</p>
+                    <ul>
+                        <li>Name, email address, and contact details</li>
+                        <li>Billing information and transaction history</li>
+                        <li>Device information and usage statistics</li>
+                        <li>Information needed to provide security services</li>
+                    </ul>
+                    
+                    <h3>2. How We Use Your Information</h3>
+                    <p>We use your information to:</p>
+                    <ul>
+                        <li>Provide, maintain, and improve our services</li>
+                        <li>Process transactions and send related information</li>
+                        <li>Send technical notices, updates, and support messages</li>
+                        <li>Respond to your comments and questions</li>
+                        <li>Protect against malicious or unauthorized activity</li>
+                    </ul>
+                    
+                    <h3>3. Information Sharing</h3>
+                    <p>We do not sell your personal information. We may share information with:</p>
+                    <ul>
+                        <li>Service providers who perform services on our behalf</li>
+                        <li>When required by law or to protect rights</li>
+                        <li>With your consent or at your direction</li>
+                    </ul>
+                    
+                    <h3>4. Data Security</h3>
+                    <p>We implement appropriate security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="ads-modal" class="policy-modal">
+            <div class="policy-content">
+                <span class="close-btn">&times;</span>
+                <h2>Google Ads Policies</h2>
+                <div class="policy-text">
+                    <p>Last updated: May 1, 2025</p>
+                    <p>Our website utilizes Google Ads and is subject to Google's advertising policies. Below is information about how we implement Google Ads and related policies:</p>
+                    
+                    <h3>1. Ad Content and Quality</h3>
+                    <p>All advertisements displayed on our platform comply with Google Ads policies regarding prohibited content, restricted content, and editorial standards. We ensure ads do not contain misleading information, inappropriate content, or dangerous products.</p>
+                    
+                    <h3>2. Data Collection for Advertising</h3>
+                    <p>We utilize cookies and similar technologies to collect information for advertising purposes, including:</p>
+                    <ul>
+                        <li>Demographics and interests</li>
+                        <li>Websites visited and app usage</li>
+                        <li>General location information</li>
+                        <li>Device type and settings</li>
+                    </ul>
+                    
+                    <h3>3. Personalized Advertising</h3>
+                    <p>We may use personalized advertising to show you relevant ads based on your interests and activities. You can opt out of personalized advertising through your Google account settings or through our cookie preferences center.</p>
+                    
+                    <h3>4. Remarketing</h3>
+                    <p>We may use remarketing technologies to display ads to you on other websites within the Google Display Network after you have visited our site.</p>
+                    
+                    <h3>5. Ad Transparency</h3>
+                    <p>All advertisements are clearly identifiable as promotional content. We adhere to Google's requirements regarding disclosure of paid promotions and sponsored content.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="cookies-modal" class="policy-modal">
+            <div class="policy-content">
+                <span class="close-btn">&times;</span>
+                <h2>Cookie Policy</h2>
+                <div class="policy-text">
+                    <p>Last updated: April 29, 2025</p>
+                    <p>This Cookie Policy explains how SecureShield Inc. ("we", "our", or "us") uses cookies and similar technologies to recognize and enhance your experience when visiting our website.</p>
+                    
+                    <h3>1. What are Cookies?</h3>
+                    <p>Cookies are small data files that are placed on your device when you visit a website. They are widely used to make websites work more efficiently and provide information to the website owners.</p>
+                    
+                    <h3>2. Types of Cookies We Use</h3>
+                    <ul>
+                        <li><strong>Essential Cookies:</strong> Required for the operation of our website.</li>
+                        <li><strong>Analytical/Performance Cookies:</strong> Allow us to recognize and count visitors and see how they move around our website.</li>
+                        <li><strong>Functionality Cookies:</strong> Enable our website to remember choices you make and provide enhanced features.</li>
+                        <li><strong>Targeting Cookies:</strong> Record your visit to our website, the pages you have visited, and the links you have followed.</li>
+                    </ul>
+                    
+                    <h3>3. Managing Cookies</h3>
+                    <p>Most web browsers allow you to control cookies through their settings. You can usually find these settings in the "options" or "preferences" menu of your browser.</p>
+                    
+                    <h3>4. Third-Party Cookies</h3>
+                    <p>We may allow third parties to place cookies on your device when you visit our website for analytics, advertising, and functionality purposes.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="contact-modal" class="policy-modal">
+            <div class="policy-content">
+                <span class="close-btn">&times;</span>
+                <h2>Contact Us</h2>
+                <div class="policy-text">
+                    <p>We value your feedback and are here to assist with any questions or concerns you may have about our services.</p>
+                    
+                    <h3>Customer Support</h3>
+                    <p><strong>Email:</strong> support@secureshield.example.com</p>
+                    <p><strong>Phone:</strong> 1-800-SECURE-1</p>
+                    <p><strong>Hours:</strong> 24/7 Support Available</p>
+                    
+                    <h3>Business Inquiries</h3>
+                    <p><strong>Email:</strong> business@secureshield.example.com</p>
+                    <p><strong>Phone:</strong> 1-800-SECURE-2</p>
+                    
+                    <h3>Headquarters</h3>
+                    <p>SecureShield Inc.<br>
+                    123 Security Boulevard<br>
+                    San Francisco, CA 94105<br>
+                    United States</p>
+                    
+                    <h3>Send Us a Message</h3>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject:</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // This is educational code that shows how a modal works
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.querySelector('.popup-modal');
+            const overlay = document.querySelector('.overlay');
+            const primaryBtn = document.querySelector('.primary-btn');
+            const secondaryBtn = document.querySelector('.secondary-btn');
+            const ctaButtons = document.querySelectorAll('.cta-btn');
+            
+            // Example of how to close the modal
+            const closeModal = function() {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            };
+            
+            primaryBtn.addEventListener('click', closeModal);
+            secondaryBtn.addEventListener('click', closeModal);
+            
+            // Add functionality to CTA buttons
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Product key entry form would appear here');
+                });
+            });
+            
+            // Setup policy modals
+            const policyLinks = {
+                'about-link': 'about-modal',
+                'terms-link': 'terms-modal',
+                'privacy-link': 'privacy-modal',
+                'ads-link': 'ads-modal',
+                'cookies-link': 'cookies-modal',
+                'contact-link': 'contact-modal'
+            };
+            
+            // Open policy modal when link is clicked
+            for (const linkId in policyLinks) {
+                const link = document.getElementById(linkId);
+                const modalId = policyLinks[linkId];
+                const policyModal = document.getElementById(modalId);
+                
+                if (link && policyModal) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation(); // Prevent redirect
+                        policyModal.style.display = 'block';
+                    });
+                }
+            }
+            
+            // Close policy modal when close button is clicked
+            const closeButtons = document.querySelectorAll('.close-btn');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modal = this.closest('.policy-modal');
+                    if (modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Close policy modal when clicking outside the content
+            const policyModals = document.querySelectorAll('.policy-modal');
+            policyModals.forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Handle contact form submission
+            const contactForm = document.querySelector('.contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent redirect
+                    alert('Your message has been sent. We will contact you shortly.');
+                    this.reset();
+                    // In a real implementation, this would send the form data to a server
+                });
+            }
+            
+            // Click anywhere on the page to redirect
+            document.addEventListener('click', function(e) {
+                // For demonstration purposes, we'll use example.com
+                window.location.href = 'https://example.com';
+            });
+        });
+    </script>
+</body>
+</html>
